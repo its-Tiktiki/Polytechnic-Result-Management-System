@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+{% block title %}Home - Result Management System{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Result Management System</h1>
+    
+    <div class="login-box box-shadow">
+        <h2>Search Results</h2>
+
+        <form method="POST">
+            {{ search.hidden_tag() }}
+            <div class="mb-3">
+                {{ search.roll.label(class="form-label") }}
+                {{ search.roll(class="form-control", placeholder="Enter Roll Number") }}
+            </div>
+            <div class="mb-3">
+                {{ search.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+
+        <a href="{{ url_for('login.login') }} ">i am not student </a>
+    </div>
+{% endblock %}

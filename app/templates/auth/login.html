@@ -1,25 +1,29 @@
 {% extends "base/base.html" %}
-{% block title %} Login - Result Mamangement System {% endblock %}
+{% block title %} Login - Result Management System {% endblock %}
 
 {% block content %}
-<h2>Welcome to Result Management System Login page </h2>
+
+<h2>Welcome to Result Management System Login page</h2>
+
 <div class="login-box box-shadow">
+
     <form method="POST">
         {{ login_form.hidden_tag() }}
 
         <div class="mb-3">
             {{ login_form.username.label(class="form-label") }}
-            {{ login_form.password(class="form-control",placeholder="Enter usename") }}
+            {{ login_form.username(class="form-control", placeholder="Enter username") }}
         </div>
 
         <div class="mb-3">
             {{ login_form.password.label(class="form-label") }}
-            {{ login_form.password(class="form-control",placeholder="Enter password") }}
+            {{ login_form.password(class="form-control", placeholder="Enter password") }}
         </div>
 
         <div class="mb-3">
-            {{ login_form.submit(class="btn btn-primary ")}}
+            {{ login_form.submit(class="btn btn-primary") }}
         </div>
+
     </form>
 
 </div>

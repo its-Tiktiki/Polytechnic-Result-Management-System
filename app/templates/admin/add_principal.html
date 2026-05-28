@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% block title %} Add principal page {% endblock %}
+
+{% block content %}
+
+<h1> Add principal </h1>
+<div class="login-box box-shadow">
+
+    <form method="POST">
+        {{ principal_data_form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ principal_data_form.id.label(class="form-label") }}
+            {{ principal_data_form.id(class="form-control",placeholder="Enter principal id") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.first_name.label(class="form-label") }}
+            {{ principal_data_form.first_name(class="form-control",placeholder="Enter principal first name") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.last_name.label(class="form-label") }}
+            {{ principal_data_form.last_name(class="form-control",placeholder="Enter principal last name") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.mobile_number.label(class="form-label") }}
+            {{ principal_data_form.mobile_number(class="form-control",placeholder="Enter principal mobile number") }}   
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.email.label(class="form-label") }}
+            {{ principal_data_form.email(class="form-control",placeholder="Enter principal email") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.institute.label(class="form-label") }}
+            {{ principal_data_form.institute(class="form-control",placeholder="Enter principal institute") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.institute_code.label(class="form-label") }}
+            {{ principal_data_form.institute_code(class="form-control",placeholder="Enter principal institute code") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.password.label(class="form-label") }}
+            {{ principal_data_form.password(class="form-control",placeholder="Enter principal password") }}
+        </div>
+
+        <div class="mb-3">
+            {{ principal_data_form.retype_password.label(class="form-label") }}
+            {{ principal_data_form.retype_password(class="form-control",placeholder="Retype principal password") }}
+        </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h1> welcome to admin Dashboard</h1>
+
+<ul>
+    <li><a href="{{ url_for('add_principal.add_principal') }}">add principal</a></li>
+    <li><a href="edit_principal.html">edit principal Info</a></li>
+</ul>
+
+{%endblock%}

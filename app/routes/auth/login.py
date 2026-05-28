@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for, flash
+from flask import Blueprint, redirect, render_template, request, url_for, flash,session
 from app.utils.form import LoginForm
 from app.extensions import db
 from app.models.admin import Admin
@@ -19,7 +19,10 @@ def login():
         password = login_form.password.data
 
         if username == DEFUALT_USERNAME and password == DEFUALT_PASSWORD:
-            return "Login success"
+            flash("Login success!","success")
+            session["admin"] = True
+            return redirect(url_for("admin_dashboard.admin_dashboard"))
+
         else:
             return "invalid username or password"
 

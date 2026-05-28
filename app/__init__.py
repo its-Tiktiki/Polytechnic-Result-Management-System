@@ -10,8 +10,12 @@ def create_app():
 
     from .routes.student.home import home_bp
     from .routes.auth.login import login_bp
+    from .routes.admin.admin_dashboard import admin_bp
+    from .routes.admin.add_principal import add_principal_bp
 
     app.register_blueprint(home_bp)
     app.register_blueprint(login_bp)
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(add_principal_bp)
 
     return app

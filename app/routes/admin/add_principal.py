@@ -19,17 +19,17 @@ def add_principal():
 
     if principal_data_form.validate_on_submit():
 
-        id = principal_data_form.id.data
+        principal_id = principal_data_form.principal_id.data
         first_name = principal_data_form.first_name.data
         last_name = principal_data_form.last_name.data
         mobile_number = principal_data_form.mobile_number.data
         email = principal_data_form.email.data
         institute = principal_data_form.institute.data
         institute_code = principal_data_form.institute_code.data
-        password = principal_data_form.password.data
+        password = principal_data_form.password.data    
 
         principal_data_info = PrincipalDataInfo(
-            id=id,
+            principal_id=principal_id,
             first_name=first_name,
             last_name=last_name,
             mobile_number=mobile_number,
@@ -41,6 +41,8 @@ def add_principal():
 
         db.session.add(principal_data_info)
         db.session.commit()
+
+        return redirect(url_for("admin_dashboard.admin_dashboard"))
 
     return render_template(
         "admin/add_principal.html",

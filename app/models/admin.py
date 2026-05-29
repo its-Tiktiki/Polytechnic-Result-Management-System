@@ -8,9 +8,9 @@ class Admin(db.Model):
     password = db.Column(db.String(120), nullable=False)
 
 class PrincipalDataInfo(db.Model):
-    __tablename__ = "teacher_info"
+    __tablename__ = "principal_info"
 
-    id = db.Column(db.Integer, primary_key = True)
+    principal_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50),nullable=False)
     last_name = db.Column(db.String(50),nullable=False)
     mobile_number = db.Column(db.String(20), nullable=False, unique=True)

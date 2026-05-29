@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% block title %}Views principals{% endblock title %}
+
+{% block content %}
+<table class="table table-striped">
+    <thaed>
+        <tr>
+            <th>principal id</th>
+            <th>Name </th>
+            <th>Details</th>
+        </tr>
+    </thaed>
+
+    <tbody>
+        {% for principal in principals %}
+
+        <tr>
+            <td>{{ principal.principal_id }}</td>
+            <td>{{ principal.first_name }} {{ principal.last_name }}</td>
+            <td><a href="#">Views</a></td>
+        <tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

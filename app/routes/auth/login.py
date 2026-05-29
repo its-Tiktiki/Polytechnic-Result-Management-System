@@ -24,7 +24,7 @@ def login():
             return redirect(url_for("admin_dashboard.admin_dashboard"))
 
         else:
-            return "invalid username or password"
+            flash("Invalid username or password","danger")
 
     return render_template("auth/login.html", login_form=login_form)
 

@@ -436,6 +436,7 @@
   .login-card {
     padding: var(--spacing-md);
     margin: 0 var(--spacing-sm) 2rem;
+    
   }
 
   .login-card .card-header {

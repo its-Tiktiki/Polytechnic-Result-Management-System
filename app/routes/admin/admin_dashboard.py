@@ -62,7 +62,6 @@ def edit_and_view_principal():
 def edit_principal(principal_id):
     principal = PrincipalDataInfo.query.get_or_404(principal_id)
     form = PrincipalDataForm(obj=principal)
-    print("EDIT ROUTE CALLED", principal_id)
 
     if form.validate_on_submit():
 
@@ -79,6 +78,7 @@ def edit_principal(principal_id):
         db.session.commit()
 
         flash("Principal information update successfully","sucess")
+
         return redirect(url_for("admin_dashboard.admin_dashboard"))
     
     return render_template(
@@ -86,3 +86,17 @@ def edit_principal(principal_id):
         form=form
     )
 
+@admin_bp.route("/admin/<int:principal_id>/delete",methods=["POST"])
+def delete_principal(principal_id):
+
+    principal = PrincipalDataInfo.query.get_or_404(principal_id)
+
+    try:
+        db.session.delete(principal)
+        db.session.commit()
+        flash("Principal Delete successfully","success")
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error deleting principal: {str(e)}","danger")
+    return redirect(url_for("admin_dashboard.admin_dashboard"))

@@ -28,6 +28,9 @@ def login():
 
     return render_template("auth/login.html", login_form=login_form)
 
-@login_bp.route("/admin")
-def admin_dashboard():
-    return "login success"
+
+@login_bp.route("/logout")
+def logout():
+    session.pop("admin", None)  # Remove admin session
+    flash("Logged out successfully!", "success")
+    return redirect(url_for("login.login"))

@@ -2,6 +2,7 @@ from flask import Blueprint, redirect, render_template, request, url_for, flash,
 from app.utils.form import LoginForm
 from app.extensions import db
 from app.models.admin import Admin
+from app.models.admin import PrincipalDataInfo
 
 # save default password
 DEFUALT_USERNAME = "admin"
@@ -18,16 +19,37 @@ def login():
         username = login_form.username.data
         password = login_form.password.data
 
-        if username == DEFUALT_USERNAME and password == DEFUALT_PASSWORD:
-            flash("Login success!","success")
+        # Check Admin table
+        admin = Admin.query.filter_by(
+            username=username,
+            password=password
+        ).first()
+
+        if admin:
             session["admin"] = True
+            flash("Admin login successful!", "success")
             return redirect(url_for("admin_dashboard.admin_dashboard"))
 
-        else:
-            flash("Invalid username or password","danger")
+        # Check Principal table
+        principal = PrincipalDataInfo.query.filter_by(
+            username=username,
+            password=password
+        ).first()
 
-    return render_template("auth/login.html", login_form=login_form)
+        if principal:
+            session["principal"] = True
+            session["principal_id"] = principal.principal_id
 
+            flash(f"Login successful, welcome {principal.first_name}","success")
+
+            return redirect(url_for("principal_dashboard.principal_dashboard"))
+
+        flash("Invalid username or password", "danger")
+
+    return render_template(
+        "auth/login.html",
+        login_form=login_form,
+    )
 
 @login_bp.route("/logout")
 def logout():

@@ -21,7 +21,7 @@ def add_department():
         principal_id = session.get("principal_id")
 
         department = Department(
-            department_id=form.department_id.data,
+            department_code=form.department_code.data,
             department_name=form.department_name.data,
             principal_id=principal_id
         )
@@ -54,7 +54,7 @@ def assign_subject():
 
     form.department_id.choices = [
         (
-            dept.department_id,
+            dept.department_code,
             dept.department_name
         )
 

@@ -20,6 +20,8 @@ def create_app():
     from .routes.principal.subject_and_department.assign_subjects import assign_subject_bp 
     from .routes.principal.subject_and_department.assign_subject_dashboard import  assign_subject_dashboard_bp
     from .routes.principal.subject_and_department.show_subjects import show_subjects_bp
+    from .routes.principal.subject_and_department.get_subject import get_subject_bp
+    from .routes.principal.subject_and_department.assign_teacher import assign_teacher_bp
 
     app.register_blueprint(home_bp) 
     app.register_blueprint(login_bp) 
@@ -33,5 +35,7 @@ def create_app():
     app.register_blueprint(assign_subject_bp)
     app.register_blueprint(assign_subject_dashboard_bp)
     app.register_blueprint(show_subjects_bp)
+    app.register_blueprint(get_subject_bp)
+    app.register_blueprint(assign_teacher_bp)
     
     return app

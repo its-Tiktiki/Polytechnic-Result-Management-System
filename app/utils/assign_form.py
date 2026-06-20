@@ -34,8 +34,8 @@ class CurriculamForm(FlaskForm):
     )
 
 class DepartmentForm(FlaskForm):
-    department_id = IntegerField(
-        "Department ID",
+    department_code = IntegerField(
+        "Department code",
         validators=[DataRequired()]
     )
     department_name = StringField(
@@ -56,5 +56,37 @@ class SubjectForm(FlaskForm):
     submit = SubmitField("Save Subject")
 
 
-class AssigTeacher(FlaskForm):
-    pass
+class AssignTeacherForm(FlaskForm): # Fixed spelling here
+    teacher_id = SelectField(
+        "Select teacher",
+        choices=[],
+        coerce=int,
+        validators=[DataRequired()]
+    )
+    department_id = SelectField(
+        "Select Department",
+        choices=[],
+        coerce=int,
+        validators=[DataRequired()]
+    )
+    semester = SelectField(
+        "Semester",
+        coerce=int,
+        choices=[
+            (1, "Semester 1"), (2, "Semester 2"), (3, "Semester 3"),
+            (4, "Semester 4"), (5, "Semester 5"), (6, "Semester 6"),
+            (7, "Semester 7")
+        ],
+        validators=[DataRequired()]
+    )
+    
+    # CRITICAL FIX: Set validate_choice=False because JS populates this dynamically.
+    # Otherwise, WTForms will block the submission thinking it's an invalid choice.
+    subject_id = SelectField(
+        "Subject",
+        choices=[],
+        coerce=int,
+        validate_choice=False
+    )
+    
+    submit = SubmitField("Assign Teacher")

@@ -31,7 +31,7 @@ def assign_subject_dashboard():
         total_subject = total_subject
     )
 
-@assign_subject_dashboard_bp.route("/assign<int:subject_id>/edit",methods=["GET","POST"])
+@assign_subject_dashboard_bp.route("/subject/<int:subject_id>/edit",methods=["GET","POST"])
 def edit_subject(subject_id):
     if not session.get("principal_id"):
         return redirect(url_for("login.login"))
@@ -54,7 +54,7 @@ def edit_subject(subject_id):
         subject = subject
     )
 
-@assign_subject_dashboard_bp.route("/assign<int:department_id>/edit",methods=["GET","POST"])
+@assign_subject_dashboard_bp.route("/department/<int:department_id>/edit",methods=["GET","POST"])
 def edit_department(department_id):
     if not session.get("principal_id"):
         return redirect(url_for("login.login"))
@@ -63,7 +63,7 @@ def edit_department(department_id):
     form =  DepartmentForm(obj=department)  
 
     if form.validate_on_submit():
-        department.department_id = form.department_id.data
+        department.department_code = form.department_code.data
         department.department_name = form.department_name.data
 
         db.session.commit()
@@ -78,7 +78,7 @@ def edit_department(department_id):
     )
 
 
-@assign_subject_dashboard_bp.route("/assign/<int:subject_id>/delete", methods=["POST"])
+@assign_subject_dashboard_bp.route("/subject/<int:subject_id>/delete", methods=["POST"])
 def delete_subject(subject_id):
     subject= Subjects.query.get_or_404(subject_id)
 
@@ -90,5 +90,21 @@ def delete_subject(subject_id):
     except Exception as e:
         db.session.rollback()
         flash(f"Error deleting subject: {str(e)}", "danger")
+
+    return redirect(url_for('assign_subject_dashboard.assign_subject_dashboard'))
+
+
+@assign_subject_dashboard_bp.route("/department/<int:department_id>/delete", methods=["POST"])
+def delete_department(department_id):
+    department= Department.query.get_or_404(department_id)
+
+    try:
+        db.session.delete(department)   
+        db.session.commit()
+        flash("Subject deleted successfully", "success")
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error deleting department: {str(e)}", "danger")
 
     return redirect(url_for('assign_subject_dashboard.assign_subject_dashboard'))

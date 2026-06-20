@@ -1,33 +1,51 @@
-{% extends "base/base.html" %}
-{% block title %} All department {% endblock %}
+{% extends "base/base.html" %} {% block title %} All department {% endblock %}
 {% block content %}
 
 <div class="container mt-4">
-    <h2>All department</h2>
+  <h2>All department</h2>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Department ID</th>
-                <th>Department Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Department ID</th>
+        <th>Department Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-        <tbody>
-            {% for department in all_department %}
+    <tbody>
+      {% for department in all_department %}
 
-            <tr>
-                <td>{{ department.department_id}}</td>
-                <td>{{department.department_name}}</td>
-                <td><a href="{{ url_for('assign_subject_dashboard.edit_department',department_id=department.department_id )}}"><button class="btn btn-primary btn-sm">Edit</button></a> <a href="#"><button class="btn btn-danger btn-sm">Delete</button></a></td>
-            </tr>
+      <tr>
+        <td>{{ department.department_code}}</td>
+        <td>{{department.department_name}}</td>
+        <td>
+          <a
+            href="{{ url_for('assign_subject_dashboard.edit_department',department_id=department.department_id )}}"
+          >
+            <button class="btn btn-primary btn-sm">Edit</button></a
+          >
+          <form
+            action="{{ url_for('assign_subject_dashboard.delete_department',
+                         department_id=department.department_id) }}"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="btn btn-danger btn-sm"
+              onclick="
+                return confirm('Are you sure you want to delete this subject?');
+              "
+            >
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
 
-            {% endfor %}
-        </tbody>
-
-    </table>
-    
-
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

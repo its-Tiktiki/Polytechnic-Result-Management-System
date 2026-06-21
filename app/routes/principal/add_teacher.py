@@ -28,7 +28,9 @@ def add_teachers():
             email=add_teacher_form.email.data,
             username=add_teacher_form.username.data,
             password=add_teacher_form.password.data,
-            principal_id=session["principal_id"]
+            principal_id=session["principal_id"],
+            shift=session["shift"]
+
         )
         
         db.session.add(teacher_data_info)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, IntegerField, SubmitField
+from wtforms import PasswordField, StringField, IntegerField, SubmitField,SelectField
 from wtforms.validators import DataRequired, Length, Regexp, EqualTo
 
 
@@ -31,7 +31,6 @@ class LoginForm(FlaskForm):
             Length(min=1, max=32)
         ]
     )
-
     submit = SubmitField("Login")
 
 
@@ -123,3 +122,15 @@ class PrincipalDataForm(FlaskForm):
 
     submit = SubmitField("Add Principal")
 
+class ShiftSelectForm(FlaskForm):
+    
+    shift = SelectField(
+        "Select Shift",
+        choices=[
+            ("Morning", "Morning Shift"),
+            ("Day", "Day Shift")
+        ],
+        validators=[DataRequired()]
+    )
+
+    submit = SubmitField("Continue")

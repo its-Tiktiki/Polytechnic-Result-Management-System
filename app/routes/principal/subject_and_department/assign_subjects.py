@@ -52,7 +52,7 @@ def assign_subject():
         principal_id=principal_id
     ).all()
 
-    form.department_id.choices = [
+    form.department_code.choices = [
         (
             dept.department_code,
             dept.department_name
@@ -77,7 +77,7 @@ def assign_subject():
     if form.validate_on_submit():
 
         curriculam = Curriculum(
-            department_id = form.department_id.data,
+            department_code = form.department_code.data,
             semester = form.semester.data,
             subject_id = form.subject_id.data
         )

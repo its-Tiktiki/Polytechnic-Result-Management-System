@@ -3,7 +3,7 @@ from wtforms import StringField,IntegerField,SelectField,SubmitField
 from wtforms.validators import DataRequired
 
 class CurriculamForm(FlaskForm):
-    department_id = SelectField(
+    department_code = SelectField(
         "Departments",
         choices=[],
         validators=[DataRequired()]
@@ -56,37 +56,38 @@ class SubjectForm(FlaskForm):
     submit = SubmitField("Save Subject")
 
 
-class AssignTeacherForm(FlaskForm): # Fixed spelling here
+class TeacherAssignmentForm(FlaskForm):
+    
     teacher_id = SelectField(
-        "Select teacher",
-        choices=[],
-        coerce=int,
-        validators=[DataRequired()]
+        choices=[]
     )
-    department_id = SelectField(
-        "Select Department",
-        choices=[],
-        coerce=int,
-        validators=[DataRequired()]
+
+    department_code = SelectField(
+        choices=[]
     )
+
     semester = SelectField(
-        "Semester",
-        coerce=int,
+
         choices=[
-            (1, "Semester 1"), (2, "Semester 2"), (3, "Semester 3"),
-            (4, "Semester 4"), (5, "Semester 5"), (6, "Semester 6"),
-            (7, "Semester 7")
-        ],
-        validators=[DataRequired()]
+
+            ("1","Semester 1"),
+            ("2","Semester 2"),
+            ("3","Semester 3"),
+            ("4","Semester 4"),
+            ("5","Semester 5"),
+            ("6","Semester 6"),
+            ("7","Semester 7"),
+            ("8","Semester 8")
+        ]
     )
-    
-    # CRITICAL FIX: Set validate_choice=False because JS populates this dynamically.
-    # Otherwise, WTForms will block the submission thinking it's an invalid choice.
+
     subject_id = SelectField(
-        "Subject",
+
         choices=[],
-        coerce=int,
-        validate_choice=False
+
+        coerce=int
     )
-    
-    submit = SubmitField("Assign Teacher")
+
+    submit = SubmitField(
+        "Assign Teacher"
+    )

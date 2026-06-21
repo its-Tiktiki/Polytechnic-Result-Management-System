@@ -16,7 +16,8 @@ def view_teachers():
     principal_id = session.get("principal_id")
 
     teachers_data = TeacherAddInfo.query.filter_by(
-        principal_id=principal_id
+        principal_id=principal_id,
+         shift=session["shift"]
     ).all()
 
     return render_template(

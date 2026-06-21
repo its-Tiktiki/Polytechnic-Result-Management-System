@@ -17,17 +17,17 @@
       {% for department in all_department %}
 
       <tr>
-        <td>{{ department.department_code}}</td>
+        <td>{{department.department_code}}</td>
         <td>{{department.department_name}}</td>
         <td>
           <a
-            href="{{ url_for('assign_subject_dashboard.edit_department',department_id=department.department_id )}}"
+            href="{{ url_for('assign_subject_dashboard.edit_department',department_code=department.department_code )}}"
           >
             <button class="btn btn-primary btn-sm">Edit</button></a
           >
           <form
             action="{{ url_for('assign_subject_dashboard.delete_department',
-                         department_id=department.department_id) }}"
+                         department_code=department.department_code) }}"
             method="POST"
             style="display: inline"
           >

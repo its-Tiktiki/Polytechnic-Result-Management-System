@@ -2,90 +2,99 @@
 {% block title %} Assign Teacher {% endblock %}
 
 {% block content %}
-<div class="form">
-    <h2>Assign Teacher page</h2>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+<form method="POST">
 
-    <form method="POST">
-        {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
 
-        <div class="mb-3">
-            {{ form.teacher_id.label(class="ap-label") }}
-            {{ form.teacher_id(class="form-control") }}
-        </div>
+    <p>
+        {{ form.teacher_id.label }}
+        {{ form.teacher_id() }}
+    </p>
 
-        <div class="mb-3">
-            {{ form.department_id.label(class="ap-label") }}
-            {{ form.department_id(id="department", class="form-control") }}
-        </div>
+    <p>
+        {{ form.department_code.label }}
+        {{ form.department_code(
+            id="department"
+        ) }}
+    </p>
 
-        <div class="mb-3">
-            {{ form.semester.label(class="ap-label") }}
-            {{ form.semester(id="semester", class="form-control") }}
-        </div>
+    <p>
+        {{ form.semester.label }}
+        {{ form.semester(
+            id="semester"
+        ) }}
+    </p>
 
-        <div class="mb-3">
-            {{ form.subject_id.label(class="ap-label") }}
-            {{ form.subject_id(id="subject", class="form-control") }}
-        </div>
+    <p>
+        {{ form.subject_id.label }}
+        {{ form.subject_id(
+            id="subject"
+        ) }}
+    </p>
 
-        <div class="mb-3">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-    </form>
-</div>
+    <p>
+        {{ form.submit() }}
+    </p>
+
+</form>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const department = document.getElementById("department");
-    const semester = document.getElementById("semester");
-    const subject = document.getElementById("subject");
 
-    function loadSubjects() {
-        const dept = department.value;
-        const sem = semester.value;
+const department = document.getElementById("department");
+const semester = document.getElementById("semester");
+const subject = document.getElementById("subject");
 
-        if (!dept || !sem) return;
+function loadSubjects() {
 
-        const url = `/api/get_subject/?department_id=${dept}&semester=${sem}`;
+    const dept = department.value;
+    const sem = semester.value;
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                subject.innerHTML = ""; // Clear previous options
-
-                if (!data || data.length === 0) {
-                    const opt = document.createElement("option");
-                    opt.value = "";
-                    opt.textContent = "No subjects mapped in curriculum";
-                    subject.appendChild(opt);
-                    return;
-                }
-
-                data.forEach(item => {
-                    const opt = document.createElement("option");
-                    opt.value = item.subject_id;
-                    opt.textContent = `${item.subject_code} - ${item.subject_name}`;
-                    subject.appendChild(opt);
-                });
-            })
-            .catch(error => console.error("Error fetching subjects:", error));
+    if (!dept || !sem) {
+        subject.innerHTML = "";
+        return;
     }
 
-    if (department) department.addEventListener("change", loadSubjects);
-    if (semester) semester.addEventListener("change", loadSubjects);
+    fetch(`/api/get-subjects?department_id=${dept}&semester=${sem}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
 
-    // Initial load in case of page refresh or pre-filled form
-    loadSubjects();
-});
+            subject.innerHTML = "";
+
+            if (data.length === 0) {
+                const option = document.createElement("option");
+                option.text = "No subjects found";
+                option.disabled = true;
+                subject.appendChild(option);
+                return;
+            }
+
+            data.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.subject_id;
+                option.text = item.subject_code + " - " + item.subject_name;
+                subject.appendChild(option);
+            });
+
+        })
+        .catch(error => {
+            console.error("Failed to load subjects:", error);
+        });
+
+}
+
+department.addEventListener("change", loadSubjects);
+semester.addEventListener("change", loadSubjects);
+
+// populate on first page load too, since the selects
+// already have default values before any "change" fires
+loadSubjects();
+
 </script>
 {% endblock %}

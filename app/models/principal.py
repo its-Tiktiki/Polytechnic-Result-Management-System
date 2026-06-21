@@ -22,3 +22,7 @@ class TeacherAddInfo(db.Model):
         nullable=False
     )
 
+    shift = db.Column(
+        db.String(20),
+        nullable=False
+    )

@@ -21,7 +21,6 @@ def assign_teacher():
     principal_id = session.get("principal_id")
     shift = session.get("shift")
 
-    # ✅ SHIFT + PRINCIPAL FILTER (IMPORTANT)
     teachers = TeacherAddInfo.query.filter_by(
         principal_id=principal_id,
         shift=shift

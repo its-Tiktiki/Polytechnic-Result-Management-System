@@ -22,6 +22,7 @@ def create_app():
     from .routes.principal.subject_and_department.show_subjects import show_subjects_bp
     from .routes.principal.subject_and_department.assign_teacher import assign_teacher_bp
     from .routes.principal.subject_and_department.get_subject import get_subject_bp
+    from .routes.teacher.teacher_dashboard import teacher_dashboard_bp
 
     app.register_blueprint(home_bp) 
     app.register_blueprint(login_bp) 
@@ -37,6 +38,7 @@ def create_app():
     app.register_blueprint(show_subjects_bp)
     app.register_blueprint(assign_teacher_bp)
     app.register_blueprint(get_subject_bp)
+    app.register_blueprint(teacher_dashboard_bp)
 
     
     return app

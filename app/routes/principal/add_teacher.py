@@ -18,6 +18,7 @@ def add_teachers():
     add_teacher_form = AddTecaherForm()
     
     if add_teacher_form.validate_on_submit():
+        
         teacher_data_info = TeacherAddInfo(
             teacher_id=add_teacher_form.teacher_id.data,
             first_name=add_teacher_form.first_name.data,

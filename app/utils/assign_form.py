@@ -19,7 +19,7 @@ class CurriculamForm(FlaskForm):
             ("4","Semester 4"),
             ("5","Semester 5"),
             ("6","Semester 6"),
-            ("7","Semester 7"),
+            ("7","Semester 7")
         ]
     )
 

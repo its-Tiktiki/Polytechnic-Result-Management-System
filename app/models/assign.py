@@ -15,8 +15,8 @@ class Subjects(db.Model):
     __tablename__ = "subjects"
 
     subject_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    subject_code = db.Column(db.String(10), nullable=False)
-    subject_name = db.Column(db.String(150), nullable=False)
+    subject_code = db.Column(db.String(10), nullable=False,unique=True)
+    subject_name = db.Column(db.String(150), nullable=False,unique=True)
     principal_id = db.Column(
         db.Integer,
         db.ForeignKey("principal_info.principal_id"),

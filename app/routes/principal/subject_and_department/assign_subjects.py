@@ -15,24 +15,27 @@ def add_department():
         return redirect(url_for("login.login"))
 
     form = DepartmentForm()
+    try:
+        if form.validate_on_submit():
 
-    if form.validate_on_submit():
+            principal_id = session.get("principal_id")
 
-        principal_id = session.get("principal_id")
+            department = Department(
+                department_code=form.department_code.data,
+                department_name=form.department_name.data,
+                principal_id=principal_id
+            )
 
-        department = Department(
-            department_code=form.department_code.data,
-            department_name=form.department_name.data,
-            principal_id=principal_id
-        )
+            db.session.add(department)
+            db.session.commit()
 
-        db.session.add(department)
-        db.session.commit()
-
-        flash("Department added successfully", "success")
-        return redirect(
-            url_for("assign_subject_dashboard.assign_subject_dashboard")
-        )
+            flash("Department added successfully", "success")
+            return redirect(
+                url_for("assign_subject_dashboard.assign_subject_dashboard")
+            )
+    except Exception as e:
+        flash("This department is alrady exist","danger")
+        return redirect(url_for("assign_subject.add_department"))
 
     return render_template(
         "principal/subject_and_department/add_department.html",
@@ -100,24 +103,29 @@ def add_subject():
         return redirect(url_for("login.login"))
 
     form = SubjectForm()
+    
+    try:
+        if form.validate_on_submit():
 
-    if form.validate_on_submit():
+            principal_id = session.get("principal_id")
 
-        principal_id = session.get("principal_id")
+            subject = Subjects(
+                subject_code=form.subject_code.data,
+                subject_name=form.subject_name.data,
+                principal_id=principal_id
+            )
 
-        subject = Subjects(
-            subject_code=form.subject_code.data,
-            subject_name=form.subject_name.data,
-            principal_id=principal_id
-        )
+            db.session.add(subject)
+            db.session.commit()
 
-        db.session.add(subject)
-        db.session.commit()
-
-        flash("subject added successfully", "success")
-        return redirect(
-            url_for("assign_subject_dashboard.assign_subject_dashboard")
-        )
+            flash("subject added successfully", "success")
+            return redirect(
+                url_for("assign_subject_dashboard.assign_subject_dashboard")
+            )
+        
+    except Exception as e:
+        flash("Error adding Subject {e}","danger")
+        return redirect(url_for("add_subject.add_subject"))
 
     return render_template(
         "principal/subject_and_department/add_subject.html",

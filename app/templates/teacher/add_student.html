@@ -1,36 +1,32 @@
-{% extends "base/base.html" %}
-{% block title %} Add Student{% endblock %}
-{% block content %}
+{% extends "base/base.html" %} {% block title %} Add Student{% endblock %} {%
+block content %}
 
 <div class="card form-box">
+  <form method="POST">
+    {{ student_form.hidden_tag() }}
 
-    <form method="POST">
-        {{ student_form.hidden_tag() }}
-
-        <div class="mb-3">
-            {{ student_form.student_roll.label(class="ap-label")}}
-            {{ student_form.student_roll(class="form-control")}}
-        </div>
-        <div class="mb-3">
-            {{ student_form.student_full_name.label(class="ap-label")}}
-            {{ student_form.student_full_name(class="form-control")}}
-        </div>
-        <div class="mb-3">
-            {{ student_form.semester.label(class="ap-label")}}
-            {{ student_form.semester(class="form-control")}}
-        </div>
-        <div class="mb-3">
-            {{ student_form.group.label(class="ap-label")}}
-            {{ student_form.group(class="form-control")}}
-        </div>
-        <div class="mb-3">
-          {{ student_form.submit(class="btn btn-primary") }}
-            
-        </div>
-
-    </form>
-
+    <div class="mb-3">
+      {{ student_form.student_roll.label(class="ap-label")}} {{
+      student_form.student_roll(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ student_form.student_full_name.label(class="ap-label")}} {{
+      student_form.student_full_name(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ student_form.semester.label(class="ap-label")}} {{
+      student_form.semester(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ student_form.department_id.label }} {{
+      student_form.department_id(class="form-control") }}
+    </div>
+    <div class="mb-3">
+      {{ student_form.group.label(class="ap-label")}} {{
+      student_form.group(class="form-control")}}
+    </div>
+    <div class="mb-3">{{ student_form.submit(class="btn btn-primary") }}</div>
+  </form>
 </div>
-
 
 {% endblock %}

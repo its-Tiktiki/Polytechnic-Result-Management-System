@@ -1,28 +1,40 @@
-from flask import Blueprint,request
-from flask import jsonify
+from flask import Blueprint, request, jsonify
 from app.models.assign import Curriculum
 
 get_subject_bp = Blueprint(
     "get_subject",
     __name__,
-    "/get_subject"
+    url_prefix="/api/get-subjects"
 )
 
-@get_subject_bp.route(
-    "/api/get-subjects"
-)
+
+@get_subject_bp.route("/", methods=["GET"])
 def get_subjects():
-    department_id = request.args.get("department_id")
-    semester = request.args.get("semester")
+    
+    # --------------------------
+    # Get query params safely
+    # --------------------------
+    department_id = request.args.get("department_id", type=int)
+    semester = request.args.get("semester", type=int)
 
+    # --------------------------
+    # Validation
+    # --------------------------
     if not department_id or not semester:
         return jsonify([])
 
+    # --------------------------
+    # IMPORTANT FIX:
+    # use department_id NOT department_code
+    # --------------------------
     curriculum_rows = Curriculum.query.filter_by(
-        department_code=department_id,   
-        semester=int(semester)          
+        department_id=department_id,
+        semester=semester
     ).all()
 
+    # --------------------------
+    # Build response
+    # --------------------------
     data = [
         {
             "subject_id": row.subject.subject_id,
@@ -30,6 +42,7 @@ def get_subjects():
             "subject_code": row.subject.subject_code,
         }
         for row in curriculum_rows
+        if row.subject
     ]
 
     return jsonify(data)

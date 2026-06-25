@@ -2,44 +2,57 @@
 {% block title %} Assign Teacher {% endblock %}
 
 {% block content %}
-<form method="POST">
 
-    {{ form.hidden_tag() }}
+<div class="container mt-4">
 
-    <p>
-        {{ form.teacher_id.label }}
-        {{ form.teacher_id() }}
-    </p>
+    <h2>Assign Teacher</h2>
 
-    <p>
-        {{ form.department_code.label }}
-        {{ form.department_code(
-            id="department"
-        ) }}
-    </p>
+    <form method="POST">
 
-    <p>
-        {{ form.semester.label }}
-        {{ form.semester(
-            id="semester"
-        ) }}
-    </p>
+        {{ form.hidden_tag() }}
 
-    <p>
-        {{ form.subject_id.label }}
-        {{ form.subject_id(
-            id="subject"
-        ) }}
-    </p>
+        <div class="mb-3">
+            {{ form.teacher_id.label(class="form-label") }}
+            {{ form.teacher_id(class="form-select") }}
+        </div>
 
-    <p>
-        {{ form.submit() }}
-    </p>
+        <div class="mb-3">
+            {{ form.department_id.label(class="form-label") }}
+            {{ form.department_id(
+                id="department",
+                class="form-select"
+            ) }}
+        </div>
 
-</form>
+        <div class="mb-3">
+            {{ form.semester.label(class="form-label") }}
+            {{ form.semester(
+                id="semester",
+                class="form-select"
+            ) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.subject_id.label(class="form-label") }}
+            {{ form.subject_id(
+                id="subject",
+                class="form-select"
+            ) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+
+    </form>
+
+</div>
+
 {% endblock %}
 
+
 {% block extra_js %}
+
 <script>
 
 const department = document.getElementById("department");
@@ -52,49 +65,96 @@ function loadSubjects() {
     const sem = semester.value;
 
     if (!dept || !sem) {
-        subject.innerHTML = "";
+
+        subject.innerHTML = `
+            <option value="">
+                Select Subject
+            </option>
+        `;
+
         return;
     }
 
-    fetch(`/api/get-subjects?department_id=${dept}&semester=${sem}`)
+    fetch(`/api/get-subjects/?department_id=${dept}&semester=${sem}`)
+
         .then(response => {
+
             if (!response.ok) {
-                throw new Error(`Server returned ${response.status}`);
+                throw new Error(
+                    `Server returned ${response.status}`
+                );
             }
+
             return response.json();
         })
+
         .then(data => {
 
             subject.innerHTML = "";
 
             if (data.length === 0) {
-                const option = document.createElement("option");
-                option.text = "No subjects found";
-                option.disabled = true;
-                subject.appendChild(option);
+
+                subject.innerHTML = `
+                    <option value="">
+                        No Subjects Found
+                    </option>
+                `;
+
                 return;
             }
 
+            const defaultOption =
+                document.createElement("option");
+
+            defaultOption.value = "";
+            defaultOption.textContent =
+                "Select Subject";
+
+            subject.appendChild(defaultOption);
+
             data.forEach(item => {
-                const option = document.createElement("option");
+
+                const option =
+                    document.createElement("option");
+
                 option.value = item.subject_id;
-                option.text = item.subject_code + " - " + item.subject_name;
+
+                option.textContent =
+                    `${item.subject_code} - ${item.subject_name}`;
+
                 subject.appendChild(option);
+
             });
 
         })
-        .catch(error => {
-            console.error("Failed to load subjects:", error);
-        });
 
+        .catch(error => {
+
+            console.error(
+                "Failed to load subjects:",
+                error
+            );
+
+            subject.innerHTML = `
+                <option value="">
+                    Error Loading Subjects
+                </option>
+            `;
+        });
 }
 
-department.addEventListener("change", loadSubjects);
-semester.addEventListener("change", loadSubjects);
+department.addEventListener(
+    "change",
+    loadSubjects
+);
 
-// populate on first page load too, since the selects
-// already have default values before any "change" fires
+semester.addEventListener(
+    "change",
+    loadSubjects
+);
+
 loadSubjects();
 
 </script>
+
 {% endblock %}

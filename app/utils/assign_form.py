@@ -3,47 +3,43 @@ from wtforms import StringField,IntegerField,SelectField,SubmitField
 from wtforms.validators import DataRequired
 
 class CurriculamForm(FlaskForm):
-    department_code = SelectField(
-        "Departments",
+    
+    department_id = SelectField(
+        "Department",
         choices=[],
+        coerce=int,
         validators=[DataRequired()]
     )
 
     semester = SelectField(
-        "semester",
-        choices=[
-            ("0","Select"),
-            ("1","Semester 1"),
-            ("2","Semester 2"),
-            ("3","Semester 3"),
-            ("4","Semester 4"),
-            ("5","Semester 5"),
-            ("6","Semester 6"),
-            ("7","Semester 7")
-        ]
+        "Semester",
+        choices=[(i, f"Semester {i}") for i in range(1, 9)],
+        coerce=int,
+        validators=[DataRequired()]
     )
 
     subject_id = SelectField(
         "Subject",
         choices=[],
-        coerce=int
-    )
-
-    submit = SubmitField(
-        "Assign Subject"
-    )
-
-class DepartmentForm(FlaskForm):
-    department_code = IntegerField(
-        "Department code",
+        coerce=int,
         validators=[DataRequired()]
     )
+
+    submit = SubmitField("Assign Subject")
+class DepartmentForm(FlaskForm):
+    
+    department_code = IntegerField(
+        "Department Code",
+        validators=[DataRequired()]
+    )
+
     department_name = StringField(
         "Department Name",
         validators=[DataRequired()]
     )
 
     submit = SubmitField("Save Department")
+
 class SubjectForm(FlaskForm):
     subject_code = StringField(
         "Subject Code",
@@ -59,35 +55,27 @@ class SubjectForm(FlaskForm):
 class TeacherAssignmentForm(FlaskForm):
     
     teacher_id = SelectField(
-        choices=[]
+        choices=[],
+        coerce=int,
+        validators=[DataRequired()]
     )
 
-    department_code = SelectField(
-        choices=[]
+    department_id = SelectField(
+        choices=[],
+        coerce=int,
+        validators=[DataRequired()]
     )
 
     semester = SelectField(
-
-        choices=[
-
-            ("1","Semester 1"),
-            ("2","Semester 2"),
-            ("3","Semester 3"),
-            ("4","Semester 4"),
-            ("5","Semester 5"),
-            ("6","Semester 6"),
-            ("7","Semester 7"),
-            ("8","Semester 8")
-        ]
+        choices=[(i, f"Semester {i}") for i in range(1, 9)],
+        coerce=int,
+        validators=[DataRequired()]
     )
 
     subject_id = SelectField(
-
         choices=[],
-
-        coerce=int
+        coerce=int,
+        validators=[DataRequired()]
     )
 
-    submit = SubmitField(
-        "Assign Teacher"
-    )
+    submit = SubmitField("Assign Teacher")

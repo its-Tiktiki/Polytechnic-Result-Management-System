@@ -55,13 +55,12 @@ def assign_subject():
         principal_id=principal_id
     ).all()
 
-    form.department_code.choices = [
+    form.department_id.choices = [
         (
-            dept.department_code,
-            dept.department_name
+            (d.department_id, f"{d.department_code} - {d.department_name}")
         )
 
-        for dept in departments
+        for d in departments
     ]
 
     subjects = Subjects.query.filter_by(
@@ -80,7 +79,7 @@ def assign_subject():
     if form.validate_on_submit():
 
         curriculam = Curriculum(
-            department_code = form.department_code.data,
+            department_id=form.department_id.data,
             semester = form.semester.data,
             subject_id = form.subject_id.data
         )

@@ -35,15 +35,15 @@ def assign_teacher():
         principal_id=principal_id
     ).all()
 
-    form.department_code.choices = [
-        (d.department_code, d.department_name)
+    form.department_id.choices = [
+        (d.department_id, d.department_name)
         for d in departments
     ]
 
-    if form.department_code.data and form.semester.data:
+    if form.department_id.data and form.semester.data:
 
         curriculum_rows = Curriculum.query.filter_by(
-            department_code=form.department_code.data,
+            department_id=form.department_id.data, 
             semester=int(form.semester.data)
         ).all()
 
@@ -57,14 +57,14 @@ def assign_teacher():
 
     if form.validate_on_submit():
 
-        assignment = TeacherAssignment(
+        aassignment = TeacherAssignment(
             teacher_id=form.teacher_id.data,
-            department_code=form.department_code.data,
-            semester=int(form.semester.data),
+            department_id=form.department_id.data,
+            semester=form.semester.data,
             subject_id=form.subject_id.data
         )
 
-        db.session.add(assignment)
+        db.session.add(aassignment)
         db.session.commit()
 
         flash("Teacher Assigned Successfully", "success")

@@ -1,0 +1,29 @@
+{% extends "base/base.html"%}
+{% block title %} Load student page {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="form">
+    <h2>Load student page</h2>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.department_id.label(class="ap-label")}}
+            {{ form.department_id(class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.semester.label(class="ap-label")}}
+            {{ form.semester(class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.group.label(class="ap-label")}}
+            {{ form.group(class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit() }}
+        </div>
+</div>
+</div>
+
+{% endblock %}

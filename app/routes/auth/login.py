@@ -1,9 +1,11 @@
 from flask import Blueprint, redirect, render_template, request, url_for, flash, session
 from app.utils.form import LoginForm
-from app.models.admin import Admin
+from app.models.assign import Department
 from app.models.admin import PrincipalDataInfo
 from app.models.principal import TeacherAddInfo
+from app.models.teacher import AddStudentInfo
 from app.utils.form import ShiftSelectForm
+
 
 login_bp = Blueprint("login", __name__, url_prefix="/login")
 
@@ -36,15 +38,24 @@ def login():
         flash("Invalid Username Or Password","danger")
 
     # teacher login
-        teacher = TeacherAddInfo.query.filter_by(username=username,password=password ).first()
+        teacher = TeacherAddInfo.query.filter_by(username=username,password=password).first()
+        student = AddStudentInfo.query.filter_by(teacher_id=teacher.teacher_id)
+        teacher = TeacherAddInfo.query.filter_by(
+            username=username,
+            password=password
+        ).first()
+
         if teacher:
             session.clear()
             session["teacher"] = True
             session["teacher_id"] = teacher.teacher_id
+            session["temp_principal_id"] = teacher.principal_id
 
             flash("Login successfully", "success")
 
-            return redirect(url_for("teacher_dashboard.teacher_dashboard"))
+            return redirect(
+                url_for("teacher_dashboard.teacher_dashboard")
+            )
     
     flash("Invalid username and password","dengar")
 

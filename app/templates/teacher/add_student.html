@@ -1,32 +1,205 @@
-{% extends "base/base.html" %} {% block title %} Add Student{% endblock %} {%
-block content %}
+{% extends "base/base.html" %}
+{% block title %}Add Student{% endblock %}
 
-<div class="card form-box">
-  <form method="POST">
-    {{ student_form.hidden_tag() }}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
 
-    <div class="mb-3">
-      {{ student_form.student_roll.label(class="ap-label")}} {{
-      student_form.student_roll(class="form-control")}}
+{% block extra_css %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<style>
+.form-page {
+  max-width: 560px;
+  margin: 2.5rem auto;
+  padding: 0 1.25rem;
+}
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.form-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-card-header svg {
+  width: 18px; height: 18px;
+  fill: none; stroke: #1a56db;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.form-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: #0f172a; margin: 0;
+}
+.form-card-sub {
+  font-size: 12px; color: #94a3b8; margin: 0; margin-left: auto;
+}
+.form-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-field label {
+  font-size: 12.5px; font-weight: 600;
+  color: #475569; font-family: sans-serif;
+}
+.form-field input,
+.form-field select {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color .15s, background .15s;
+  font-family: sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #1a56db;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26,86,219,.08);
+}
+.form-field select { cursor: pointer; }
+.form-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.btn-cancel {
+  padding: 9px 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13px; font-weight: 600;
+  color: #64748b; cursor: pointer;
+  text-decoration: none;
+  font-family: sans-serif;
+  transition: background .15s;
+}
+.btn-cancel:hover { background: #f8fafc; color: #1e293b; }
+.btn-submit {
+  padding: 9px 24px;
+  background: #1a56db;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  font-family: sans-serif;
+  display: flex; align-items: center; gap: 6px;
+  transition: background .15s;
+}
+.btn-submit:hover { background: #1648c0; }
+.btn-submit svg {
+  width: 15px; height: 15px;
+  fill: none; stroke: #ffffff;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- TOPBAR -->
+<header class="dash-topbar">
+  <div class="dash-topbar-left">
+    <div class="dash-logo-mark">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     </div>
-    <div class="mb-3">
-      {{ student_form.student_full_name.label(class="ap-label")}} {{
-      student_form.student_full_name(class="form-control")}}
+    <div>
+      <p class="dash-sys-name">Result Management System</p>
+      <p class="dash-sys-sub">Teacher portal</p>
     </div>
-    <div class="mb-3">
-      {{ student_form.semester.label(class="ap-label")}} {{
-      student_form.semester(class="form-control")}}
+  </div>
+  <div class="dash-topbar-right">
+    <a href="{{ url_for('teacher_dashboard.teacher_dashboard') }}" class="dash-signout-btn">
+      <svg viewBox="0 0 24 24">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      <span>Back</span>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB + FORM -->
+<div style="background:#f0f4f8; min-height:calc(100vh - 62px); padding-top:2rem;">
+
+  <div class="form-page">
+
+    <nav class="dash-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:1.25rem;">
+      <a href="{{ url_for('teacher_dashboard.teacher_dashboard') }}" style="color:#94a3b8; text-decoration:none;">Dashboard</a>
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      <span>Add student</span>
+    </nav>
+
+    <div class="form-card">
+      <div class="form-card-header">
+        <svg viewBox="0 0 24 24">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="8.5" cy="7" r="4"/>
+          <line x1="20" y1="8" x2="20" y2="14"/>
+          <line x1="23" y1="11" x2="17" y2="11"/>
+        </svg>
+        <p class="form-card-title">Add new student</p>
+        <span class="form-card-sub">All fields required</span>
+      </div>
+
+      <form method="POST">
+        {{ student_form.hidden_tag() }}
+
+        <div class="form-body">
+          <div class="form-field">
+            {{ student_form.student_roll.label }}
+            {{ student_form.student_roll(placeholder="e.g. 2401") }}
+          </div>
+
+          <div class="form-field">
+            {{ student_form.student_full_name.label }}
+            {{ student_form.student_full_name(placeholder="Full name") }}
+          </div>
+
+          <div class="form-field">
+            {{ student_form.semester.label }}
+            {{ student_form.semester(placeholder="e.g. 3rd") }}
+          </div>
+
+          <div class="form-field">
+            {{ student_form.department_id.label }}
+            {{ student_form.department_id() }}
+          </div>
+
+          <div class="form-field">
+            {{ student_form.group.label }}
+            {{ student_form.group(placeholder="e.g. A") }}
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <a href="{{ url_for('teacher_dashboard.teacher_dashboard') }}" class="btn-cancel">Cancel</a>
+          {{ student_form.submit(class="btn-submit") }}
+        </div>
+      </form>
     </div>
-    <div class="mb-3">
-      {{ student_form.department_id.label }} {{
-      student_form.department_id(class="form-control") }}
-    </div>
-    <div class="mb-3">
-      {{ student_form.group.label(class="ap-label")}} {{
-      student_form.group(class="form-control")}}
-    </div>
-    <div class="mb-3">{{ student_form.submit(class="btn btn-primary") }}</div>
-  </form>
+
+  </div>
 </div>
 
 {% endblock %}
+
+{% block extra_js %}{% endblock %}

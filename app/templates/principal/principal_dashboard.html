@@ -1,22 +1,285 @@
 {% extends "base/base.html" %}
-{% block title %} Principal Dashboard {% endblock %}
+{% block title %}Principal Dashboard{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<div class="card ">
-    <h1>Welcome to principal Dashboard </h1>
+<!-- TOPBAR -->
+<header class="dash-topbar">
+  <div class="dash-topbar-left">
+    <div class="dash-logo-mark">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+    <div>
+      <p class="dash-sys-name">Result Management System</p>
+      <p class="prin-topbar-sub">Principal portal</p>
+    </div>
+  </div>
 
-    <ul class="make_list card box-shadow">
-        <li><a href="{{ url_for('add_teacher.add_teachers')}}">Add Teacher</a></li>
-        <li><a href="{{ url_for('view_teachers.view_teachers')}}">Views Teachers</a></li>
-        <li><a href="{{ url_for('edit_teacher.edit_tecaher_view')}}">Edit Teacher</a></li>
-        <li><a href="{{ url_for('assign_subject_dashboard.assign_subject_dashboard')}}">Assign Dashboard</a></li>
-    </ul>
-    <div class="box">
-        <h2>Total teachers {{ total_teachers }}</h2>
+  <div class="dash-topbar-right">
+    <button class="dash-notif-btn" title="Notifications">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="dash-notif-dot"></span>
+    </button>
 
+    <div class="dash-avatar-wrap">
+      <div class="dash-avatar">PR</div>
+      <div>
+        <p class="dash-av-name">Principal</p>
+        <p class="dash-av-role">{{ shift }} shift</p>
+      </div>
     </div>
 
-    <a href="{{ url_for("login.logout_principal")}}" class="btn btn-danger">Logout </a>
-</div>
+    <a href="{{ url_for('login.logout_principal') }}" class="dash-signout-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      <span>Sign out</span>
+    </a>
+  </div>
+</header>
 
+<!-- PAGE -->
+<main class="dash-page">
+
+  <!-- Breadcrumb -->
+  <nav class="dash-breadcrumb" aria-label="Breadcrumb">
+    Home
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    <span>Principal Dashboard</span>
+  </nav>
+
+  <!-- Page header -->
+  <div class="dash-page-hdr">
+    <div>
+      <h1>Welcome, Principal</h1>
+      <p>Managing teachers and assignments for the <strong>{{ shift }}</strong> shift.</p>
+    </div>
+    <div class="dash-page-hdr-right">
+      <span class="shift-badge">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        {{ shift }} shift
+      </span>
+      <a href="{{ url_for('add_teacher.add_teachers') }}" class="dash-btn-primary">
+        <svg viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Add teacher
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="dash-stats prin-stats anim-slide" 
+  style="display:grid !important; grid-template-columns:repeat(3,1fr) !important;">
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-blue">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <span class="stat-badge badge-up">Active</span>
+      </div>
+      <span class="stat-value">{{ total_teachers }}</span>
+      <span class="stat-label">Total teachers</span>
+      <div class="stat-accent acc-blue"></div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-teal">
+          <svg viewBox="0 0 24 24">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <span class="stat-badge badge-pending">Assigned</span>
+      </div>
+      <span class="stat-value">{{ total_subjects if total_subjects is defined else '—' }}</span>
+      <span class="stat-label">Subjects assigned</span>
+      <div class="stat-accent acc-teal"></div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-amber">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <span class="stat-badge badge-idle">Pending</span>
+      </div>
+      <span class="stat-value">{{ pending_assignments if pending_assignments is defined else '—' }}</span>
+      <span class="stat-label">Pending assignments</span>
+      <div class="stat-accent acc-amber"></div>
+    </li>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="dash-grid">
+
+    <!-- Quick Actions -->
+    <div class="dash-panel anim-slide" style="transition-delay: .1s">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span class="panel-title">Quick actions</span>
+          <span class="panel-sub">All tasks</span>
+        </div>
+        <span class="panel-chip">{{ shift }} shift</span>
+      </div>
+
+      <ul class="action-list">
+        <li>
+          <a href="{{ url_for('view_teachers.view_teachers') }}" class="action-item">
+            <span class="action-num">1</span>
+            <div class="action-icon-wrap ai-blue">
+              <svg viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="action-body">
+              <span class="action-name">View teachers</span>
+              <span class="action-desc">Browse all teachers in your shift</span>
+            </div>
+            <div class="action-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('edit_teacher.edit_tecaher_view') }}" class="action-item">
+            <span class="action-num">2</span>
+            <div class="action-icon-wrap ai-indigo">
+              <svg viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </div>
+            <div class="action-body">
+              <span class="action-name">Edit teacher</span>
+              <span class="action-desc">Update teacher info and assignments</span>
+            </div>
+            <div class="action-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('assign_subject_dashboard.assign_subject_dashboard') }}" class="action-item">
+            <span class="action-num">3</span>
+            <div class="action-icon-wrap ai-amber">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="action-body">
+              <span class="action-name">Assign subjects</span>
+              <span class="action-desc">Assign subjects and classes to teachers</span>
+            </div>
+            <div class="action-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="dash-side">
+
+      <!-- System Status -->
+      <div class="dash-panel anim-slide" style="transition-delay: .2s">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="panel-title">System status</span>
+          </div>
+        </div>
+        <ul class="health-list">
+          <li class="health-item">
+            <div class="health-item-left">
+              <span class="health-pulse hp-green"></span>Teacher portal
+            </div>
+            <span class="health-tag tag-ok">Online</span>
+          </li>
+          <li class="health-item">
+            <div class="health-item-left">
+              <span class="health-pulse hp-green"></span>Result portal
+            </div>
+            <span class="health-tag tag-ok">Online</span>
+          </li>
+          <li class="health-item">
+            <div class="health-item-left">
+              <span class="health-pulse hp-amber"></span>Report generator
+            </div>
+            <span class="health-tag tag-warn">Busy</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Help Card -->
+      <div class="help-card anim-slide" style="transition-delay: .28s">
+        <div class="help-card-top">
+          <div class="help-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <p class="help-label">Need help?</p>
+        </div>
+        <p class="help-sub">Contact the system administrator for any issues with teacher management or subject assignments.</p>
+        <a href="mailto:admin@school.edu" class="help-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Contact admin
+        </a>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.anim-slide').forEach(el => observer.observe(el));
+</script>
 {% endblock %}

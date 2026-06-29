@@ -1,4 +1,4 @@
-from flask import Blueprint,redirect,url_for,render_template,flash,session
+from flask import Blueprint, redirect, url_for, render_template, flash, session
 from app.utils.assign_form import CurriculamForm,SubjectForm,DepartmentForm
 from app.extensions import db
 from app.models.assign import Department,Subjects,Curriculum
@@ -8,6 +8,7 @@ assign_subject_bp = Blueprint(
     __name__,
     url_prefix="/assign_subject"
 )
+
 
 @assign_subject_bp.route("/add_department", methods=["GET", "POST"])
 def add_department():

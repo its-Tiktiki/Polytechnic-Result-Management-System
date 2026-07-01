@@ -31,7 +31,7 @@
   </div>
 
   <div class="dash-topbar-right">
-    <a href="#" class="dash-notif-btn" aria-label="Notifications">
+    <a href="/notifications" class="dash-notif-btn" aria-label="Notifications">
       <i class="ti ti-bell"></i>
       <span class="dash-notif-dot"></span>
     </a>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <a href="#" class="dash-signout-btn">
+    <a href="/logout" class="dash-signout-btn">
       <i class="ti ti-logout"></i>
       <span>Sign out</span>
     </a>
@@ -59,7 +59,7 @@
 
   <!-- Breadcrumb -->
   <ol class="dash-breadcrumb" aria-label="Breadcrumb">
-    <li><a href="#">Dashboard</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
     <li><i class="ti ti-chevron-right"></i></li>
     <li><span>Assign Subject</span></li>
   </ol>
@@ -90,11 +90,9 @@
         <div class="stat-icon-box si-teal"><i class="ti ti-building"></i></div>
         <span class="stat-badge badge-teal">Active</span>
       </div>
-      <a href="{{ url_for('add_teacher.add_teachers') }}" class="dash-btn-primary">
-        <span class="stat-value">6</span>
+      <span class="stat-value">6</span>
       <span class="stat-label">Total departments</span>
-      <div class="stat-accent acc-teal"></div></a>
-      
+      <div class="stat-accent acc-teal"></div>
     </li>
 
     <li class="stat-card">
@@ -135,7 +133,7 @@
       <ul class="action-list">
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/departments/add">
             <span class="action-num">1</span>
             <span class="action-icon-wrap ai-blue"><i class="ti ti-building-plus"></i></span>
             <span class="action-body">
@@ -147,7 +145,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/subjects/add">
             <span class="action-num">2</span>
             <span class="action-icon-wrap ai-teal"><i class="ti ti-book-plus"></i></span>
             <span class="action-body">
@@ -159,7 +157,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/subjects/assign">
             <span class="action-num">3</span>
             <span class="action-icon-wrap ai-indigo"><i class="ti ti-link"></i></span>
             <span class="action-body">
@@ -171,7 +169,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/subjects">
             <span class="action-num">4</span>
             <span class="action-icon-wrap ai-slate"><i class="ti ti-list"></i></span>
             <span class="action-body">
@@ -183,7 +181,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/departments">
             <span class="action-num">5</span>
             <span class="action-icon-wrap ai-slate"><i class="ti ti-building"></i></span>
             <span class="action-body">
@@ -195,7 +193,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="#">
+          <a class="action-item" href="/teachers/assign">
             <span class="action-num">6</span>
             <span class="action-icon-wrap ai-amber"><i class="ti ti-user-check"></i></span>
             <span class="action-body">
@@ -290,7 +288,7 @@
           <p class="help-label">Need help?</p>
         </div>
         <p class="help-sub">Check the documentation for managing subjects, departments, and teacher assignments.</p>
-        <a class="help-btn" href="#">
+        <a class="help-btn" href="/docs">
           <i class="ti ti-external-link"></i> View docs
         </a>
       </div>

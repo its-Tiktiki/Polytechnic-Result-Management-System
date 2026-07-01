@@ -1,23 +1,310 @@
-{% extends "base/base.html"%}
-{% block title%} Assign Subject dashoard {% endblock %}
-{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign Subject Dashboard — Result Management System</title>
 
-<div class="box box-shadow">
-    <h2> Assign Subject dashoard</h2>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('assign_subject.add_department')}}">Add Department</a></li>
-            <li><a href="{{url_for('assign_subject.add_subject')}}">Add Subject</a></li>
-            <li><a href="{{ url_for('assign_subject.assign_subject')}}">Assign Subject</a></li>
-            <li><a href="{{ url_for('show_subjects.show_subjects')}}">Show Subject</a></li>
-            <li><a href="{{ url_for('show_subjects.show_department')}}">Show Department </a></li>
-            <li><a href="{{ url_for('assign_teacher.assign_teacher')}}">Assign Teacher</a></li>
+  <!-- Shared dashboard styles -->
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     TOPBAR
+══════════════════════════════════════════ -->
+<header class="dash-topbar">
+  <div class="dash-topbar-left">
+    <div class="dash-logo-mark">
+      <i class="ti ti-chart-bar"></i>
+    </div>
+    <div>
+      <p class="dash-sys-name">Result Management System</p>
+      <p class="dash-sys-sub">Admin panel</p>
+    </div>
+  </div>
+
+  <div class="dash-topbar-right">
+    <a href="#" class="dash-notif-btn" aria-label="Notifications">
+      <i class="ti ti-bell"></i>
+      <span class="dash-notif-dot"></span>
+    </a>
+
+    <div class="dash-avatar-wrap">
+      <div class="dash-avatar">PR</div>
+      <div>
+        <p class="dash-av-name">Principal</p>
+        <p class="dash-av-role">Principal</p>
+      </div>
+    </div>
+
+    <a href="#" class="dash-signout-btn">
+      <i class="ti ti-logout"></i>
+      <span>Sign out</span>
+    </a>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE BODY
+══════════════════════════════════════════ -->
+<div class="dash-page">
+
+  <!-- Breadcrumb -->
+  <ol class="dash-breadcrumb" aria-label="Breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><i class="ti ti-chevron-right"></i></li>
+    <li><span>Assign Subject</span></li>
+  </ol>
+
+  <!-- Page header -->
+  <div class="dash-page-hdr anim-slide">
+    <div>
+      <h1>Assign Subject Dashboard</h1>
+      <p>Manage departments, subjects, and teacher assignments. <strong>24 subjects · 6 departments</strong></p>
+    </div>
+  </div>
+
+  <!-- ── STATS ──────────────────────────────── -->
+  <ul class="dash-stats anim-slide" aria-label="Summary statistics">
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-blue"><i class="ti ti-books"></i></div>
+        <span class="stat-badge badge-up">Active</span>
+      </div>
+      <span class="stat-value">24</span>
+      <span class="stat-label">Total subjects</span>
+      <div class="stat-accent acc-blue"></div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-teal"><i class="ti ti-building"></i></div>
+        <span class="stat-badge badge-teal">Active</span>
+      </div>
+      <span class="stat-value">6</span>
+      <span class="stat-label">Total departments</span>
+      <div class="stat-accent acc-teal"></div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-indigo"><i class="ti ti-users"></i></div>
+        <span class="stat-badge badge-indigo">Linked</span>
+      </div>
+      <span class="stat-value">18</span>
+      <span class="stat-label">Assigned teachers</span>
+      <div class="stat-accent acc-indigo"></div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-icon-box si-amber"><i class="ti ti-clipboard-list"></i></div>
+        <span class="stat-badge badge-amber">Pending</span>
+      </div>
+      <span class="stat-value">3</span>
+      <span class="stat-label">Unassigned subjects</span>
+      <div class="stat-accent acc-amber"></div>
+    </li>
+
+  </ul>
+
+  <!-- ── MAIN GRID ──────────────────────────── -->
+  <div class="dash-grid">
+
+    <!-- Quick actions -->
+    <div class="dash-panel anim-slide">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <i class="ti ti-layout-grid"></i>
+          <span class="panel-title">Quick actions</span>
+        </div>
+        <span class="panel-sub">6 actions available</span>
+      </div>
+
+      <ul class="action-list">
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">1</span>
+            <span class="action-icon-wrap ai-blue"><i class="ti ti-building-plus"></i></span>
+            <span class="action-body">
+              <span class="action-name">Add department</span>
+              <span class="action-desc">Create a new academic department</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">2</span>
+            <span class="action-icon-wrap ai-teal"><i class="ti ti-book-plus"></i></span>
+            <span class="action-body">
+              <span class="action-name">Add subject</span>
+              <span class="action-desc">Register a new subject to the system</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">3</span>
+            <span class="action-icon-wrap ai-indigo"><i class="ti ti-link"></i></span>
+            <span class="action-body">
+              <span class="action-name">Assign subject</span>
+              <span class="action-desc">Link subjects to departments</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">4</span>
+            <span class="action-icon-wrap ai-slate"><i class="ti ti-list"></i></span>
+            <span class="action-body">
+              <span class="action-name">Show subjects</span>
+              <span class="action-desc">Browse all registered subjects</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">5</span>
+            <span class="action-icon-wrap ai-slate"><i class="ti ti-building"></i></span>
+            <span class="action-body">
+              <span class="action-name">Show departments</span>
+              <span class="action-desc">View all departments</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="action-item" href="#">
+            <span class="action-num">6</span>
+            <span class="action-icon-wrap ai-amber"><i class="ti ti-user-check"></i></span>
+            <span class="action-body">
+              <span class="action-name">Assign teacher</span>
+              <span class="action-desc">Map teachers to subjects</span>
+            </span>
+            <span class="action-arrow"><i class="ti ti-arrow-right"></i></span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="dash-side">
+
+      <!-- System health -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <i class="ti ti-heartbeat"></i>
+            <span class="panel-title">System health</span>
+          </div>
+          <span class="panel-chip">Live</span>
+        </div>
+        <ul class="health-list">
+          <li class="health-item">
+            <span class="health-item-left">
+              <span class="health-pulse hp-green"></span>Database
+            </span>
+            <span class="health-tag tag-ok">Operational</span>
+          </li>
+          <li class="health-item">
+            <span class="health-item-left">
+              <span class="health-pulse hp-green"></span>Subject API
+            </span>
+            <span class="health-tag tag-ok">Operational</span>
+          </li>
+          <li class="health-item">
+            <span class="health-item-left">
+              <span class="health-pulse hp-amber"></span>Email service
+            </span>
+            <span class="health-tag tag-warn">Degraded</span>
+          </li>
         </ul>
+      </div>
 
-    </nav>
+      <!-- Recent activity -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <i class="ti ti-activity"></i>
+            <span class="panel-title">Recent activity</span>
+          </div>
+        </div>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <span class="activity-dot dot-blue"></span>
+            <span>
+              <span class="activity-text">Subject "Mathematics" added</span>
+              <span class="activity-time">2 minutes ago</span>
+            </span>
+          </li>
+          <li class="activity-item">
+            <span class="activity-dot dot-teal"></span>
+            <span>
+              <span class="activity-text">Dept. "Computer Science" created</span>
+              <span class="activity-time">18 minutes ago</span>
+            </span>
+          </li>
+          <li class="activity-item">
+            <span class="activity-dot dot-amber"></span>
+            <span>
+              <span class="activity-text">Teacher assigned to Physics</span>
+              <span class="activity-time">1 hour ago</span>
+            </span>
+          </li>
+          <li class="activity-item">
+            <span class="activity-dot dot-indigo"></span>
+            <span>
+              <span class="activity-text">3 subjects linked to Engineering</span>
+              <span class="activity-time">Yesterday</span>
+            </span>
+          </li>
+        </ul>
+      </div>
 
-    <h3>total subject: {{total_subject}} </h3>
-    <h3>total Department: {{total_department}}</h3>
+      <!-- Help card -->
+      <div class="help-card">
+        <div class="help-card-top">
+          <div class="help-icon"><i class="ti ti-help"></i></div>
+          <p class="help-label">Need help?</p>
+        </div>
+        <p class="help-sub">Check the documentation for managing subjects, departments, and teacher assignments.</p>
+        <a class="help-btn" href="#">
+          <i class="ti ti-external-link"></i> View docs
+        </a>
+      </div>
+
+    </div>
+  </div>
 </div>
-{% endblock %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const els = document.querySelectorAll('.anim-slide');
+    els.forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('visible'); }, i * 120);
+    });
+  });
+</script>
+
+</body>
+</html>

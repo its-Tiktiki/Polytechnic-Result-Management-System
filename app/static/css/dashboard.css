@@ -5,7 +5,17 @@
    ============================================ */
 
 /* ── RESET & BASE ─────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f4f8;
+  color: #1e293b;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
 
 /* ── TOPBAR ───────────────────────────────── */
 .dash-topbar {
@@ -45,6 +55,7 @@
   stroke-width: 2;
   stroke-linecap: round;
 }
+.dash-logo-mark i { font-size: 18px; color: #ffffff; }
 .dash-sys-name {
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
@@ -77,6 +88,7 @@
   cursor: pointer;
   position: relative;
   transition: background 0.15s;
+  text-decoration: none;
 }
 .dash-notif-btn:hover { background: #f8fafc; }
 .dash-notif-btn svg {
@@ -87,6 +99,7 @@
   stroke-width: 2;
   stroke-linecap: round;
 }
+.dash-notif-btn i { font-size: 17px; color: #64748b; }
 .dash-notif-dot {
   position: absolute;
   top: 7px;
@@ -149,6 +162,7 @@
   gap: 6px;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
+  font-family: 'Poppins', sans-serif;
 }
 .dash-signout-btn:hover { background: #f8fafc; color: #1e293b; }
 .dash-signout-btn svg {
@@ -159,6 +173,7 @@
   stroke-width: 2;
   stroke-linecap: round;
 }
+.dash-signout-btn i { font-size: 14px; }
 
 /* ── PAGE WRAPPER ─────────────────────────── */
 .dash-page {
@@ -182,6 +197,8 @@
   list-style: none;
   padding: 0;
 }
+.dash-breadcrumb a { color: #94a3b8; transition: color 0.15s; }
+.dash-breadcrumb a:hover { color: #1a56db; }
 .dash-breadcrumb span { color: #1e293b; font-weight: 600; }
 .dash-breadcrumb svg {
   width: 12px;
@@ -192,6 +209,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.dash-breadcrumb i { font-size: 12px; color: #cbd5e1; }
 
 /* ── PAGE HEADER ──────────────────────────── */
 .dash-page-hdr {
@@ -215,7 +233,7 @@
   color: #64748b;
   margin: 0;
 }
-.dash-page-hdr strong { color: #1a56db; }
+.dash-page-hdr strong { color: #1a56db; font-weight: 600; }
 .dash-page-hdr-right { display: flex; gap: 8px; align-items: center; }
 
 .shift-badge {
@@ -305,15 +323,16 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.si-blue   { background: #eff6ff; }
+.stat-icon-box i { font-size: 20px; }
+.si-blue   { background: #eff6ff; color: #1a56db; }
 .si-blue   svg { stroke: #1a56db; }
-.si-teal   { background: #f0fdf9; }
+.si-teal   { background: #f0fdf9; color: #0d9488; }
 .si-teal   svg { stroke: #0d9488; }
-.si-indigo { background: #eef2ff; }
+.si-indigo { background: #eef2ff; color: #6366f1; }
 .si-indigo svg { stroke: #6366f1; }
-.si-amber  { background: #fffbeb; }
+.si-amber  { background: #fffbeb; color: #d97706; }
 .si-amber  svg { stroke: #d97706; }
-.si-green  { background: #f0fdf4; }
+.si-green  { background: #f0fdf4; color: #16a34a; }
 .si-green  svg { stroke: #16a34a; }
 
 /* Stat badges */
@@ -326,6 +345,10 @@
 .badge-up      { background: #f0fdf4; color: #16a34a; }
 .badge-idle    { background: #fefce8; color: #ca8a04; }
 .badge-pending { background: #eff6ff; color: #1a56db; }
+.badge-blue    { background: #eff6ff; color: #1a56db; }
+.badge-teal    { background: #f0fdf9; color: #0d9488; }
+.badge-indigo  { background: #eef2ff; color: #6366f1; }
+.badge-amber   { background: #fffbeb; color: #d97706; }
 
 .stat-value {
   font-family: 'Poppins', sans-serif;
@@ -395,6 +418,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.panel-header-left i { font-size: 17px; color: #1a56db; }
 .panel-title {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -463,18 +487,19 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.ai-blue   { background: #eff6ff; }
+.action-icon-wrap i { font-size: 17px; }
+.ai-blue   { background: #eff6ff; color: #1a56db; }
 .ai-blue   svg { stroke: #1a56db; }
-.ai-teal   { background: #f0fdf9; }
+.ai-teal   { background: #f0fdf9; color: #0d9488; }
 .ai-teal   svg { stroke: #0d9488; }
-.ai-indigo { background: #eef2ff; }
+.ai-indigo { background: #eef2ff; color: #6366f1; }
 .ai-indigo svg { stroke: #6366f1; }
-.ai-slate  { background: #f8fafc; }
+.ai-slate  { background: #f8fafc; color: #475569; }
 .ai-slate  svg { stroke: #475569; }
-.ai-amber  { background: #fffbeb; }
+.ai-amber  { background: #fffbeb; color: #d97706; }
 .ai-amber  svg { stroke: #d97706; }
 
-.action-body { flex: 1; }
+.action-body { flex: 1; min-width: 0; }
 .action-name {
   font-size: 13px;
   font-weight: 600;
@@ -498,7 +523,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 0.15s, border-color 0.15s;
+  color: #94a3b8;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .action-arrow svg {
   width: 13px;
@@ -510,7 +536,8 @@
   stroke-linejoin: round;
   transition: stroke 0.15s;
 }
-.action-item:hover .action-arrow { background: #eff6ff; border-color: #bfdbfe; }
+.action-arrow i { font-size: 13px; }
+.action-item:hover .action-arrow { background: #eff6ff; border-color: #bfdbfe; color: #1a56db; }
 .action-item:hover .action-arrow svg { stroke: #1a56db; }
 
 /* ── SIDEBAR ──────────────────────────────── */
@@ -643,6 +670,7 @@
   stroke-width: 2;
   stroke-linecap: round;
 }
+.help-icon i { font-size: 17px; color: #ffffff; }
 .help-label {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -673,7 +701,7 @@
   text-decoration: none;
   transition: background 0.15s;
 }
-.help-btn:hover { background: rgba(255, 255, 255, 0.25); }
+.help-btn:hover { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
 .help-btn svg {
   width: 14px;
   height: 14px;
@@ -682,14 +710,12 @@
   stroke-width: 2;
   stroke-linecap: round;
 }
+.help-btn i { font-size: 14px; }
 
 /* ══════════════════════════════════════════
    PRINCIPAL DASHBOARD — additional classes
    (extends the shared styles above)
    ══════════════════════════════════════════ */
-
-/* Tabler icon font — used only in principal dashboard */
-/* Load via <link> in the HTML template, not here      */
 
 /* Principal-specific topbar sub-label */
 .prin-topbar-sub { font-size: 11px; color: #64748b; margin: 1px 0 0; }
@@ -698,9 +724,6 @@
 .dash-stats.prin-stats {
   grid-template-columns: repeat(3, 1fr);
 }
-
-/* Icon colours reused from shared but declared
-   with the .si-green variant added above         */
 
 /* ── ANIMATIONS ───────────────────────────── */
 .anim-slide {

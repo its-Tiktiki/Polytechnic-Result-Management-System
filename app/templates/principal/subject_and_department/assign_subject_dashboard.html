@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <a href="/logout" class="dash-signout-btn">
+    <a href="{{ url_for('login.logout_principal') }}" class="dash-signout-btn">
       <i class="ti ti-logout"></i>
       <span>Sign out</span>
     </a>
@@ -133,7 +133,7 @@
       <ul class="action-list">
 
         <li>
-          <a class="action-item" href="/departments/add">
+          <a class="action-item" href="{{ url_for('assign_subject.add_department') }}">
             <span class="action-num">1</span>
             <span class="action-icon-wrap ai-blue"><i class="ti ti-building-plus"></i></span>
             <span class="action-body">
@@ -145,7 +145,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="/subjects/add">
+          <a class="action-item" href="{{ url_for('assign_subject.add_subject') }}">
             <span class="action-num">2</span>
             <span class="action-icon-wrap ai-teal"><i class="ti ti-book-plus"></i></span>
             <span class="action-body">
@@ -157,7 +157,7 @@
         </li>
 
         <li>
-          <a class="action-item" href="/subjects/assign">
+          <a class="action-item" href="{{ url_for('assign_subject.assign_subject') }}">
             <span class="action-num">3</span>
             <span class="action-icon-wrap ai-indigo"><i class="ti ti-link"></i></span>
             <span class="action-body">

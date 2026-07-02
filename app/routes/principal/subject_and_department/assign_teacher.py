@@ -7,7 +7,7 @@ from app.utils.assign_form import TeacherAssignmentForm
 assign_teacher_bp = Blueprint(
     "assign_teacher",
     __name__,
-    "/assign_teacher"
+    url_prefix="/assign_teacher"
 )
 
 @assign_teacher_bp.route(

@@ -119,13 +119,11 @@ def add_subject():
             db.session.commit()
 
             flash("subject added successfully", "success")
-            return redirect(
-                url_for("assign_subject_dashboard.assign_subject_dashboard")
-            )
+            return redirect(url_for("assign_subject.add_subject"))
         
     except Exception as e:
-        flash("Error adding Subject {e}","danger")
-        return redirect(url_for("add_subject.add_subject"))
+        flash(f"Error adding Subject: {e}", "danger")
+        return redirect(url_for("assign_subject.add_subject"))
 
     return render_template(
         "principal/subject_and_department/add_subject.html",

@@ -1,3 +1,19 @@
+{% extends "base/base.html"%}
+{% block title%} Assign Subject dashoard {% endblock %}
+{% block content%}
+
+<div class="box box-shadow">
+    <h2> Assign Subject dashoard</h2>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('assign_subject.add_department')}}">Add Department</a></li>
+            <li><a href="{{url_for('assign_subject.add_subject')}}">Add Subject</a></li>
+            <li><a href="{{ url_for('assign_subject.assign_subject')}}">Assign Subject</a></li>
+            <li><a href="{{ url_for('show_subjects.show_subjects')}}">Show Subject</a></li>
+            <li><a href="{{ url_for('show_subjects.show_department')}}">Show Department </a></li>
+            <li><a href="{{ url_for('assign_teacher.assign_teacher')}}">Assign Teacher</a></li>
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -237,74 +253,13 @@
               <span class="health-pulse hp-amber"></span>Email service
             </span>
             <span class="health-tag tag-warn">Degraded</span>
-          </li>
+     
         </ul>
-      </div>
 
-      <!-- Recent activity -->
-      <div class="dash-panel">
-        <div class="panel-header">
-          <div class="panel-header-left">
-            <i class="ti ti-activity"></i>
-            <span class="panel-title">Recent activity</span>
-          </div>
-        </div>
-        <ul class="activity-list">
-          <li class="activity-item">
-            <span class="activity-dot dot-blue"></span>
-            <span>
-              <span class="activity-text">Subject "Mathematics" added</span>
-              <span class="activity-time">2 minutes ago</span>
-            </span>
-          </li>
-          <li class="activity-item">
-            <span class="activity-dot dot-teal"></span>
-            <span>
-              <span class="activity-text">Dept. "Computer Science" created</span>
-              <span class="activity-time">18 minutes ago</span>
-            </span>
-          </li>
-          <li class="activity-item">
-            <span class="activity-dot dot-amber"></span>
-            <span>
-              <span class="activity-text">Teacher assigned to Physics</span>
-              <span class="activity-time">1 hour ago</span>
-            </span>
-          </li>
-          <li class="activity-item">
-            <span class="activity-dot dot-indigo"></span>
-            <span>
-              <span class="activity-text">3 subjects linked to Engineering</span>
-              <span class="activity-time">Yesterday</span>
-            </span>
-          </li>
-        </ul>
-      </div>
+    </nav>
 
-      <!-- Help card -->
-      <div class="help-card">
-        <div class="help-card-top">
-          <div class="help-icon"><i class="ti ti-help"></i></div>
-          <p class="help-label">Need help?</p>
-        </div>
-        <p class="help-sub">Check the documentation for managing subjects, departments, and teacher assignments.</p>
-        <a class="help-btn" href="/docs">
-          <i class="ti ti-external-link"></i> View docs
-        </a>
-      </div>
-
-    </div>
-  </div>
+    <h3>total subject: {{total_subject}} </h3>
+    <h3>total Department: {{total_department}}</h3>
 </div>
+{% endblock %}
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const els = document.querySelectorAll('.anim-slide');
-    els.forEach(function (el, i) {
-      setTimeout(function () { el.classList.add('visible'); }, i * 120);
-    });
-  });
-</script>
-
-</body>
-</html>
